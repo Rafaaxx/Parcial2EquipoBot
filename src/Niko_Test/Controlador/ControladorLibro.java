@@ -1,6 +1,7 @@
 package Niko_Test.Controlador;
 
 import Niko_Test.Modelo.Libro;
+import Niko_Test.Modelo.Tema;
 import Niko_Test.Vista.FormularioVista;
 
 import java.awt.event.ActionEvent;
@@ -25,29 +26,37 @@ public class ControladorLibro {
 
 
         });
+
+
+        this.vista.leerLibrosCargadosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(registrodelibros.size());
+            }
+        });
     }
 
     public void guardarArchivo() {
         Libro librohecho=null;
         //Definir array
-        ArrayList<String> array = new ArrayList<>();
+        ArrayList<Tema> array = new ArrayList<>();
         if (this.vista.romanceCheckBox.isSelected()) {
-            array.add("Romance");
+            array.add(new Tema("Romance", librohecho));
         }
         if (this.vista.historiaCheckBox.isSelected()) {
-            array.add("Historia");
+            array.add(new Tema("Historia", librohecho));
         }
         if (this.vista.cienciaFiccionCheckBox.isSelected()) {
-            array.add("Ciencia Ficción");
+            array.add(new Tema("Ciencia Ficción", librohecho));
         }
         if (this.vista.comediaCheckBox.isSelected()) {
-            array.add("Comedia");
+            array.add(new Tema("Comedia", librohecho));
         }
         if (this.vista.tragediaCheckBox.isSelected()) {
-            array.add("Tragedia");
+            array.add(new Tema("Tragedia", librohecho));
         }
         if (this.vista.terrorCheckBox.isSelected()) {
-            array.add("Terror");
+            array.add(new Tema("Terror", librohecho));
         }
 
         //Crear el nuevo libro
@@ -76,6 +85,10 @@ public class ControladorLibro {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void ObtenerLibroYTemas(){
 
     }
 

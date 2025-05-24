@@ -7,13 +7,13 @@ public class Libro implements Serializable {
     private String titulo;
     private int numerolibro;
     private String clasificacion;
-    private ArrayList<String> temas;
+    protected ArrayList<Tema> consiste_en;
 
-    public Libro(String titulo, int numerolibro, String clasificacion, ArrayList<String> temas) {
+    public Libro(String titulo, int numerolibro, String clasificacion, ArrayList<Tema> temas) {
         this.titulo = titulo;
         this.numerolibro = numerolibro;
         this.clasificacion = clasificacion;
-        this.temas = temas;
+        this.consiste_en = temas;
     }
 
     public String getTitulo() {
@@ -40,11 +40,11 @@ public class Libro implements Serializable {
         this.numerolibro = numerolibro;
     }
 
-    public ArrayList<String> getTemas() {
-        return temas;
+    public ArrayList<Tema> getTemas() {
+        return consiste_en;
     }
 
-    public void setTemas(ArrayList<String> temas) {
-        this.temas = temas;
+    public void setTemas(ArrayList<Tema> temas) {
+        this.consiste_en = temas;
     }
 }
