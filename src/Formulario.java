@@ -81,7 +81,36 @@ public class Formulario {
 
     }
     public void leerLibros(){
-
+        if (!archivolibros.exists()) {
+            JOptionPane.showMessageDialog(Panel_Principal, "No hay registros de libros guardados", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try {
+            FileInputStream archivoInicial = new FileInputStream(archivolibros);
+            ObjectInputStream lectorLibros = new ObjectInputStream(archivoInicial);
+            registrodelibros = (List<Libro>) lectorLibros.readObject();
+            lectorLibros.close();
+            lectorLibros.close();
+            String textoLibros = "";
+            for (Libro libro : registrodelibros) {
+                textoLibros += "Título: " + libro.getTitulo() + "\n";
+                textoLibros += "Número: " + libro.getNumerolibro() + "\n";
+                textoLibros += "Clasificación: " + libro.getClasificacion() + "\n";
+                if (!libro.getTemas().isEmpty()) {
+                    textoLibros += "Temas: \n";
+                    for (Tema tema : libro.getTemas()) {
+                        textoLibros += "- " + tema.getDenominacion() + "\n";
+                    }
+                }
+                textoLibros += "\n";
+            }
+            JTextArea areaTextoLibros = new JTextArea(textoLibros);
+            areaTextoLibros.setEditable(false);
+            JScrollPane scroll = new JScrollPane(areaTextoLibros);
+            JOptionPane.showMessageDialog(Panel_Principal, scroll, "Libros guardados", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(Panel_Principal, "Ocurrió un error al leer el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
     public void finalizar(){
         System.exit(0);
