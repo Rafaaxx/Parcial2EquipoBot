@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Formulario {
-
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
@@ -17,6 +16,7 @@ public class Formulario {
     private JButton guardarLibroButton;
     private JButton leerLibrosCargadosButton;
     private JButton terminarButton;
+    private JPanel Panel_Principal;
     File archivolibros=new File("Registro_de_libros.dat");
     List<Libro> registrodelibros=new ArrayList<>();
 
@@ -60,20 +60,22 @@ public class Formulario {
         }
 
         //Crear el ObjectInputStream
-        try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream(archivolibros))){
-            registrodelibros=(List<Libro>) ois.readObject();
+        if (archivolibros.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivolibros))) {
+                registrodelibros = (List<Libro>) ois.readObject();
 
-        }catch (IOException | ClassNotFoundException e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        registrodelibros.add(librohecho);
-        try(ObjectOutputStream oos= new ObjectOutputStream(new FileOutputStream(archivolibros))){
-            oos.writeObject(registrodelibros);
-            System.out.println("Libro guardado.");
-        }catch (IOException e){
-            System.out.println("Error al escribir el archivo");
-            e.printStackTrace();
+            } catch (IOException | ClassNotFoundException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            registrodelibros.add(librohecho);
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
+                oos.writeObject(registrodelibros);
+                System.out.println("Libro guardado.");
+            } catch (IOException e) {
+                System.out.println("Error al escribir el archivo");
+                e.printStackTrace();
+            }
         }
 
 
@@ -84,5 +86,12 @@ public class Formulario {
     public void finalizar(){
 
     }
-    
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Formulario");
+        frame.setContentPane(new Formulario().Panel_Principal);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

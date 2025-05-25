@@ -1,4 +1,6 @@
-public class Tema {
+import java.io.Serializable;
+
+public class Tema implements Serializable {
     protected String denominacion;
 
     public Tema(String denominacion) {
