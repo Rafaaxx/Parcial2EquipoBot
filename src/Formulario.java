@@ -84,7 +84,7 @@ public class Formulario {
 
     }
     public void finalizar(){
-
+        System.exit(0);
     }
 
     public static void main(String[] args) {
