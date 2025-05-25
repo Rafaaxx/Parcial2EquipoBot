@@ -28,31 +28,31 @@ public class Formulario {
     public void guardarArchivo() {
         Libro librohecho=null;
         //Definir array
-        ArrayList<Tema> array = new ArrayList<>();
+        ArrayList<Tema> consiste_en = new ArrayList<>();
         Tema tema=null;
         if (romanceCheckBox.isSelected()) {
-            array.add(tema=new Tema("Romance"));
+            consiste_en.add(tema=new Tema("Romance"));
         }
         if (historiaCheckBox.isSelected()) {
-            array.add(tema=new Tema("Historia"));
+            consiste_en.add(tema=new Tema("Historia"));
         }
         if (cienciaFicciónCheckBox.isSelected()) {
-            array.add(tema=new Tema("Ciencia Ficcion"));
+            consiste_en.add(tema=new Tema("Ciencia Ficcion"));
         }
         if (comediaCheckBox.isSelected()) {
-            array.add(tema=new Tema("Comedia"));
+            consiste_en.add(tema=new Tema("Comedia"));
         }
         if (tragediaCheckBox.isSelected()) {
-            array.add(tema=new Tema("Tragedia"));
+            consiste_en.add(tema=new Tema("Tragedia"));
         }
         if (terrorCheckBox.isSelected()) {
-            array.add(tema=new Tema("Terror"));
+            consiste_en.add(tema=new Tema("Terror"));
         }
 
         //Crear el nuevo libro
         try {
              librohecho = new Libro(textField2.getText(), Integer.parseInt(textField1.getText()), textField3.getText());
-             librohecho.setTemas(array);
+             librohecho.setTemas(consiste_en);
         }catch (NumberFormatException e){
             e.getMessage();
             System.out.println("Error: La respuesta del campo 'numero de libro' no es un numero.");
