@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ControladorLibro {
     public FormularioVista vista;
-    File archivolibros=new File("Registro_de_libros");
+    File archivolibros=new File("Registro_de_libros.dat");
     List<Libro> registrodelibros=new ArrayList<>();
 
     public ControladorLibro(FormularioVista vista){
@@ -32,6 +32,18 @@ public class ControladorLibro {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(registrodelibros.size());
+               try{
+                   leerArchivo();
+               } catch (IOException | ClassNotFoundException b){
+                   System.out.println(b.getMessage());
+               }
+            }
+        });
+
+        this.vista.terminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finalizar();
             }
         });
     }
@@ -68,15 +80,8 @@ public class ControladorLibro {
             return;
         }
 
-        //Crear el ObjectInputStream
-        try(ObjectInputStream ois= new ObjectInputStream(new FileInputStream(archivolibros))){
-            registrodelibros=(List<Libro>) ois.readObject();
-
-        }catch (IOException | ClassNotFoundException e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
         registrodelibros.add(librohecho);
+
         try(ObjectOutputStream oos= new ObjectOutputStream(new FileOutputStream(archivolibros))){
             oos.writeObject(registrodelibros);
             System.out.println("Libro guardado.");
@@ -88,8 +93,16 @@ public class ControladorLibro {
 
     }
 
-    public void ObtenerLibroYTemas(){
+    public void leerArchivo() throws IOException, ClassNotFoundException{
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Registro_de_libros.dat"))){
+            Object obj = ois.readObject();
+            System.out.println("Objeto leido desde " + "data.dat");
+            System.out.println(obj.toString());
+        }
+    }
 
+    public void finalizar(){
+        System.exit(0);
     }
 
 }

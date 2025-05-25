@@ -52,4 +52,8 @@ public class Libro implements Serializable {
 
         }
     }
+
+    public String toString(){
+        return "Libro " + titulo + " Numero: " + numerolibro;
+    }
 }

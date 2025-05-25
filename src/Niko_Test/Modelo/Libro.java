@@ -47,4 +47,8 @@ public class Libro implements Serializable {
     public void setTemas(ArrayList<Tema> temas) {
         this.consiste_en = temas;
     }
+
+    public String toString(){
+        return "Libro " + titulo + " numero N° " + numerolibro;
+    }
 }

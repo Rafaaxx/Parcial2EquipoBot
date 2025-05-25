@@ -1,6 +1,8 @@
 package Niko_Test.Modelo;
 
-public class Tema {
+import java.io.Serializable;
+
+public class Tema implements Serializable {
     public String denominacion;
     public Libro libro;
 
