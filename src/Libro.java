@@ -5,13 +5,13 @@ public class Libro implements Serializable {
     private String titulo;
     private int numerolibro;
     private String clasificacion;
-    private ArrayList<String> temas;
+    private ArrayList<Tema> temas;
 
-    public Libro(String titulo, int numerolibro, String clasificacion, ArrayList<String> temas) {
+    public Libro(String titulo, int numerolibro, String clasificacion) {
         this.titulo = titulo;
         this.numerolibro = numerolibro;
         this.clasificacion = clasificacion;
-        this.temas = temas;
+        this.temas = new ArrayList<>();
     }
 
     public String getTitulo() {
@@ -38,11 +38,18 @@ public class Libro implements Serializable {
         this.numerolibro = numerolibro;
     }
 
-    public ArrayList<String> getTemas() {
+    public ArrayList<Tema> getTemas() {
         return temas;
     }
 
-    public void setTemas(ArrayList<String> temas) {
+    public void setTemas(ArrayList<Tema> temas) {
         this.temas = temas;
+    }
+    public void mostrardatos(){
+        System.out.println("Titulo: "+titulo+" Numero: "+numerolibro+" Clasificacion: "+clasificacion);
+        for (int i = 0; i < temas.size(); i++) {
+            System.out.println(temas.get(i).toString());
+
+        }
     }
 }
