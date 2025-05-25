@@ -68,6 +68,7 @@ public class Formulario {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
+        }
             registrodelibros.add(librohecho);
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
                 oos.writeObject(registrodelibros);
@@ -76,7 +77,7 @@ public class Formulario {
                 System.out.println("Error al escribir el archivo");
                 e.printStackTrace();
             }
-        }
+
 
 
     }
