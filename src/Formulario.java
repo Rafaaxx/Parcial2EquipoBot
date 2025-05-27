@@ -3,6 +3,19 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+class NoTemaSeleccionadoException extends Exception {
+    public NoTemaSeleccionadoException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+class TituloVacioException extends Exception {
+    public TituloVacioException(String mensaje) {
+        super(mensaje);
+    }
+}
+
+
 public class Formulario {
     private JTextField textField1;
     private JTextField textField2;
@@ -69,6 +82,20 @@ public class Formulario {
                 e.printStackTrace();
             }
         }
+        
+    private void validarTemas() throws NoTemaSeleccionadoException {
+        if (!romanceCheckBox.isSelected() && !cienciaFicciónCheckBox.isSelected() && !comediaCheckBox.isSelected() &&
+            !terrorCheckBox.isSelected() && !historiaCheckBox.isSelected() && !tragediaCheckBox.isSelected()) {
+            throw new NoTemaSeleccionadoException("No eligió un tema");
+        }
+    }
+
+    private void validarTitulo() throws TituloVacioException {
+        String titulo = textField2.getText().trim();
+        if (titulo.length() < 1 || (titulo.length() == 1 && titulo.equals(" "))) {
+            throw new TituloVacioException("El título está vacío");
+        }
+    }
             registrodelibros.add(librohecho);
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
                 oos.writeObject(registrodelibros);
