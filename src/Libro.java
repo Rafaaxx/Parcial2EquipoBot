@@ -2,14 +2,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Libro implements Serializable {
-    private String titulo;
-    private int numerolibro;
-    private String clasificacion;
-    private ArrayList<Tema> temas;
+    public String titulo;
+    public int numero;
+    public String clasificacion;
+    protected ArrayList<Tema> temas;
 
-    public Libro(String titulo, int numerolibro, String clasificacion) {
+    public Libro(String titulo, int numero, String clasificacion) {
         this.titulo = titulo;
-        this.numerolibro = numerolibro;
+        this.numero = numero;
         this.clasificacion = clasificacion;
         this.temas = new ArrayList<>();
     }
@@ -17,7 +17,6 @@ public class Libro implements Serializable {
     public String getTitulo() {
         return titulo;
     }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -25,17 +24,15 @@ public class Libro implements Serializable {
     public String getClasificacion() {
         return clasificacion;
     }
-
     public void setClasificacion(String clasificacion) {
         this.clasificacion = clasificacion;
     }
 
-    public int getNumerolibro() {
-        return numerolibro;
+    public int getNumero() {
+        return numero;
     }
-
-    public void setNumerolibro(int numerolibro) {
-        this.numerolibro = numerolibro;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public ArrayList<Tema> getTemas() {
@@ -46,7 +43,7 @@ public class Libro implements Serializable {
         this.temas = temas;
     }
     public void mostrardatos(){
-        System.out.println("Titulo: "+titulo+" Numero: "+numerolibro+" Clasificacion: "+clasificacion);
+        System.out.println("Titulo: "+titulo+" Numero: "+numero+" Clasificacion: "+clasificacion);
         for (int i = 0; i < temas.size(); i++) {
             System.out.println(temas.get(i).toString());
 
@@ -54,6 +51,6 @@ public class Libro implements Serializable {
     }
 
     public String toString(){
-        return "Libro " + titulo + " Numero: " + numerolibro;
+        return "Libro " + titulo + " Numero: " + numero;
     }
 }
