@@ -44,8 +44,8 @@ public class Libro implements Serializable {
     }
     public void mostrardatos(){
         System.out.println("Titulo: "+titulo+" Numero: "+numero+" Clasificación: "+clasificacion);
-        for (int i = 0; i < temas.size(); i++) {
-            System.out.println(temas.get(i).toString());
+        for (int i = 0; i < consiste_en.size(); i++) {
+            System.out.println(consiste_en.get(i).toString());
 
         }
     }
