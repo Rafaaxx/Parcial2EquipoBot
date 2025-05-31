@@ -5,13 +5,13 @@ public class Libro implements Serializable {
     public String titulo;
     public int numero;
     public String clasificacion;
-    protected ArrayList<Tema> temas;
+    protected ArrayList<Tema> consiste_en;
 
     public Libro(String titulo, int numero, String clasificacion) {
         this.titulo = titulo;
         this.numero = numero;
         this.clasificacion = clasificacion;
-        this.temas = new ArrayList<>();
+        this.consiste_en = new ArrayList<>();
     }
 
     public String getTitulo() {
@@ -35,15 +35,15 @@ public class Libro implements Serializable {
         this.numero = numero;
     }
 
-    public ArrayList<Tema> getTemas() {
-        return temas;
+    public ArrayList<Tema> getConsiste_en() {
+        return consiste_en;
     }
 
-    public void setTemas(ArrayList<Tema> temas) {
-        this.temas = temas;
+    public void setConsiste_en(ArrayList<Tema> consiste_en) {
+        this.consiste_en = consiste_en;
     }
     public void mostrardatos(){
-        System.out.println("Titulo: "+titulo+" Numero: "+numero+" Clasificacion: "+clasificacion);
+        System.out.println("Titulo: "+titulo+" Numero: "+numero+" Clasificación: "+clasificacion);
         for (int i = 0; i < temas.size(); i++) {
             System.out.println(temas.get(i).toString());
 
