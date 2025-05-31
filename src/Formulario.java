@@ -34,11 +34,18 @@ public class Formulario {
     List<Libro> registrodelibros=new ArrayList<>();
 
     public Formulario(){
-        guardarLibroButton.addActionListener(e -> guardarArchivo());
+        guardarLibroButton.addActionListener(e -> {
+            try {
+                guardarArchivo();
+            } catch (NoTemaSeleccionadoException | TituloVacioException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         leerLibrosCargadosButton.addActionListener(e -> leerLibros());
         terminarButton.addActionListener(e ->finalizar());
     }
-    public void guardarArchivo() {
+
+    public void guardarArchivo() throws NoTemaSeleccionadoException, TituloVacioException {
         Libro librohecho=null;
         //Definir array
         ArrayList<Tema> consiste_en = new ArrayList<>();
@@ -82,32 +89,42 @@ public class Formulario {
                 e.printStackTrace();
             }
         }
-        
-    private void validarTemas() throws NoTemaSeleccionadoException {
-        if (!romanceCheckBox.isSelected() && !cienciaFicciónCheckBox.isSelected() && !comediaCheckBox.isSelected() &&
-            !terrorCheckBox.isSelected() && !historiaCheckBox.isSelected() && !tragediaCheckBox.isSelected()) {
-            throw new NoTemaSeleccionadoException("No eligió un tema");
+
+
+        validarTitulo();
+        validarTemas();
+
+
+        registrodelibros.add(librohecho);
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
+            oos.writeObject(registrodelibros);
+            System.out.println("Libro guardado.");
+        } catch (IOException e) {
+            System.out.println("Error al escribir el archivo");
+            e.printStackTrace();
         }
+
+
     }
 
     private void validarTitulo() throws TituloVacioException {
         String titulo = textField2.getText().trim();
-        if (titulo.length() < 1 || (titulo.length() == 1 && titulo.equals(" "))) {
-            throw new TituloVacioException("El título está vacío");
+        if (titulo.trim().length() < 1) {
+            JOptionPane.showMessageDialog(null, "El titulo esta vacio");
+            throw new TituloVacioException("El titulo esta vacio");
+        }
+
+    }
+
+    private void validarTemas() throws NoTemaSeleccionadoException {
+        if (!romanceCheckBox.isSelected() && !cienciaFicciónCheckBox.isSelected() && !comediaCheckBox.isSelected() &&
+                !terrorCheckBox.isSelected() && !historiaCheckBox.isSelected() && !tragediaCheckBox.isSelected()) {
+            JOptionPane.showMessageDialog(null,"Debes elegir uno o más temas para tu libro");
+            throw new NoTemaSeleccionadoException("No se eligio el tema");
         }
     }
-            registrodelibros.add(librohecho);
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
-                oos.writeObject(registrodelibros);
-                System.out.println("Libro guardado.");
-            } catch (IOException e) {
-                System.out.println("Error al escribir el archivo");
-                e.printStackTrace();
-            }
 
-
-
-    }
     public void leerLibros(){
         if (!archivolibros.exists()) {
             JOptionPane.showMessageDialog(Panel_Principal, "No hay registros de libros guardados", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -122,7 +139,7 @@ public class Formulario {
             String textoLibros = "";
             for (Libro libro : registrodelibros) {
                 textoLibros += "Título: " + libro.getTitulo() + "\n";
-                textoLibros += "Número: " + libro.getNumerolibro() + "\n";
+                textoLibros += "Número: " + libro.getNumero() + "\n";
                 textoLibros += "Clasificación: " + libro.getClasificacion() + "\n";
                 if (!libro.getConsiste_en().isEmpty()) {
                     textoLibros += "Temas: \n";
@@ -140,6 +157,7 @@ public class Formulario {
             JOptionPane.showMessageDialog(Panel_Principal, "Ocurrió un error al leer el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void finalizar(){
         System.exit(0);
     }
