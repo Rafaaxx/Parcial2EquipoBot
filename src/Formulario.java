@@ -65,7 +65,7 @@ public class Formulario {
         //Crear el nuevo libro
         try {
              librohecho = new Libro(textField2.getText(), Integer.parseInt(textField1.getText()), textField3.getText());
-             librohecho.setTemas(consiste_en);
+             librohecho.setConsiste_en(consiste_en);
         }catch (NumberFormatException e){
             e.getMessage();
             System.out.println("Error: La respuesta del campo 'numero de libro' no es un numero.");
@@ -124,9 +124,9 @@ public class Formulario {
                 textoLibros += "Título: " + libro.getTitulo() + "\n";
                 textoLibros += "Número: " + libro.getNumerolibro() + "\n";
                 textoLibros += "Clasificación: " + libro.getClasificacion() + "\n";
-                if (!libro.getTemas().isEmpty()) {
+                if (!libro.getConsiste_en().isEmpty()) {
                     textoLibros += "Temas: \n";
-                    for (Tema tema : libro.getTemas()) {
+                    for (Tema tema : libro.getConsiste_en()) {
                         textoLibros += "- " + tema.getDenominacion() + "\n";
                     }
                 }
