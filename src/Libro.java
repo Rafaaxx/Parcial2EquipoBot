@@ -38,10 +38,10 @@ public class Libro implements Serializable {
     public ArrayList<Tema> getConsiste_en() {
         return consiste_en;
     }
-
     public void setConsiste_en(ArrayList<Tema> consiste_en) {
         this.consiste_en = consiste_en;
     }
+    
     public void mostrardatos(){
         System.out.println("Titulo: "+titulo+" Numero: "+numero+" Clasificación: "+clasificacion);
         for (int i = 0; i < consiste_en.size(); i++) {
