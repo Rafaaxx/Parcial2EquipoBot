@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class Formulario {
              librohecho.setConsiste_en(consiste_en);
         }catch (NumberFormatException e){
             e.getMessage();
-            System.out.println("Error: La respuesta del campo 'numero de libro' no es un numero.");
+            JOptionPane.showMessageDialog(Panel_Principal, "Error: La respuesta del campo 'numero de libro' no es un numero.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -85,7 +86,7 @@ public class Formulario {
                 registrodelibros = (List<Libro>) ois.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(Panel_Principal, e.getMessage(), "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 e.printStackTrace();
             }
         }
@@ -99,9 +100,9 @@ public class Formulario {
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivolibros))) {
             oos.writeObject(registrodelibros);
-            System.out.println("Libro guardado.");
+            JOptionPane.showMessageDialog(Panel_Principal, "Libro guardado", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException e) {
-            System.out.println("Error al escribir el archivo");
+            JOptionPane.showMessageDialog(Panel_Principal, "Error al escribir el archivo", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             e.printStackTrace();
         }
 
@@ -135,7 +136,6 @@ public class Formulario {
             ObjectInputStream lectorLibros = new ObjectInputStream(archivoInicial);
             registrodelibros = (List<Libro>) lectorLibros.readObject();
             lectorLibros.close();
-            lectorLibros.close();
             String textoLibros = "";
             for (Libro libro : registrodelibros) {
                 textoLibros += "Título: " + libro.getTitulo() + "\n";
@@ -152,6 +152,7 @@ public class Formulario {
             JTextArea areaTextoLibros = new JTextArea(textoLibros);
             areaTextoLibros.setEditable(false);
             JScrollPane scroll = new JScrollPane(areaTextoLibros);
+            scroll.setPreferredSize(new Dimension(250, 150));
             JOptionPane.showMessageDialog(Panel_Principal, scroll, "Libros guardados", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(Panel_Principal, "Ocurrió un error al leer el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
